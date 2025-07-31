@@ -4,3 +4,5 @@ openai
 pypdf2
 keybert
 python-dotenv
+nltk
+textstat
