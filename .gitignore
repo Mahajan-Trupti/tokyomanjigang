@@ -1,3 +1,18 @@
-venv/
-.env
+# this is our .gitignore file
+
+# IGNORE THE CACHE!!!
+
+# ignore python cache files
 __pycache__/
+*.pyc
+
+# ignore environment variables file
+.env
+
+# ignore streamlit local cache
+.streamlit/cache/
+
+# ignore any generated output files you don't want tracked
+*.pdf
+*.txt
+*.json

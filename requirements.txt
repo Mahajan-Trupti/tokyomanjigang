@@ -1,0 +1,6 @@
+streamlit
+langchain
+openai
+pypdf2
+keybert
+python-dotenv
