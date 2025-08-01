@@ -1,3 +1,5 @@
+#mainly for pdf parsing
+
 from PyPDF2 import PdfReader
 import io
 
