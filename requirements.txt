@@ -1,4 +1,6 @@
-streamlit
+react.js
+tailwind css
+vite 
 langchain
 openai
 pypdf2

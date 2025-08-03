@@ -1,2 +1,0 @@
-# tokyomanjigang
-techrush project
