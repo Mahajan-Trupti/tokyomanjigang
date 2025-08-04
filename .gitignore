@@ -15,4 +15,4 @@ __pycache__/
 # ignore any generated output files you don't want tracked
 *.pdf
 *.txt
-*.json
+
