@@ -70,9 +70,8 @@ const Navigation = () => {
           <Link to="/login">
             <button
               className="px-5 py-2 border-2 border-dashed border-muted-foreground/30 rounded-lg
-                         text-foreground text-sm font-medium tracking-wide transition-all duration-300
-                         hover:border-primary hover:text-primary hover:shadow-pink-glow
-                         hover:scale-105"
+               text-foreground text-sm font-medium tracking-wide transition-all duration-300
+               hover-style-btn"
             >
               login
             </button>
@@ -80,9 +79,8 @@ const Navigation = () => {
           <Link to="/signup">
             <button
               className="px-5 py-2 border-2 border-dashed border-muted-foreground/30 rounded-lg
-                         text-foreground text-sm font-medium tracking-wide transition-all duration-300
-                         hover:border-primary hover:text-primary hover:shadow-pink-glow
-                         hover:scale-105"
+               text-foreground text-sm font-medium tracking-wide transition-all duration-300
+               hover-style-btn"
             >
               signup
             </button>
@@ -90,9 +88,8 @@ const Navigation = () => {
           <Link to="/about-us">
             <button
               className="px-5 py-2 border-2 border-dashed border-muted-foreground/30 rounded-lg
-                           text-foreground text-sm font-medium tracking-wide transition-all duration-300
-                           hover:border-primary hover:text-primary hover:shadow-pink-glow
-                           hover:scale-105"
+               text-foreground text-sm font-medium tracking-wide transition-all duration-300
+               hover-style-btn"
             >
               about us
             </button>

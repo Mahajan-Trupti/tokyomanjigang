@@ -8,6 +8,17 @@
 All colors MUST be HSL.
 */
 
+@layer components {
+  /* ... your other components ... */
+
+  .hover-style-btn:hover {
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.3);
+    transform: scale(1.05);
+  }
+}
+
 @layer base {
   :root {
     /* Base colors - deep space theme */

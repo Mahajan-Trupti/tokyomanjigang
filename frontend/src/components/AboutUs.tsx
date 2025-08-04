@@ -1,5 +1,6 @@
 import React from "react";
 
+//creating variables for each member
 const teamMembers = [
   {
     name: "Trupti Mahajan",
@@ -24,6 +25,7 @@ const teamMembers = [
   },
 ];
 
+//the return function of aboutus.tsx
 const AboutUs = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8">
