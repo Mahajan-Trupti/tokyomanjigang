@@ -179,9 +179,11 @@ const LandingPage = () => {
           </div>
 
           {/* CTA */}
-          <button className="magic-button text-white px-5 py-2.5 rounded-xl text-lg font-medium max-w-max">
-            Start Weaving →
-          </button>
+          <Link to="/dashboard">
+            <button className="magic-button text-white px-5 py-2.5 rounded-xl text-lg font-medium max-w-max">
+              Start Weaving →
+            </button>
+          </Link>
         </main>
 
         {/* Spline Component as the right-hand column */}
