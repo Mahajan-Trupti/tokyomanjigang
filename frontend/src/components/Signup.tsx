@@ -1,19 +1,34 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  createUserWithEmailAndPassword,
+  auth,
+} from "../firebase"; // Assuming firebase.ts is in the parent directory of components
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle signup logic here
-    console.log("Signing up with:", { email, password, confirmPassword });
+    setError(null); // Clear previous errors
 
-    // Redirect to the dashboard page
-    navigate("/dashboard");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match"); // Set error state instead of alert()
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log("✅ Signed up:", auth.currentUser?.email);
+      navigate('/'); // Redirect to home page after successful signup
+    } catch (err: any) {
+      console.error("Signup error:", err);
+      setError(err.message); // Display Firebase error message
+    }
   };
 
   return (
@@ -54,6 +69,7 @@ const Signup = () => {
             Sign up →
           </button>
         </form>
+        {error && <p className="mt-4 text-center text-red-500">{error}</p>}
         <p className="mt-6 text-center text-muted-foreground">
           Already have an account?{" "}
           <Link to="/login" className="text-primary hover:underline glow-text">
