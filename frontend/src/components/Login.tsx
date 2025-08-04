@@ -1,18 +1,41 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  auth,
+  provider,
+} from "../firebase"; // Assuming firebase.ts is in the parent directory of components
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Assuming login is successful
-    console.log("Logging in with:", { email, password });
+    setError(null); // Clear previous errors
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("✅ Logged in:", auth.currentUser?.email);
+      navigate('/'); // Redirect to home page after successful login
+    } catch (err: any) {
+      console.error("Login error:", err);
+      setError(err.message); // Display Firebase error message
+    }
+  };
 
-    // Redirect to the dashboard page
-    navigate("/dashboard");
+  const handleGoogleLogin = async () => {
+    setError(null); // Clear previous errors
+    try {
+      await signInWithPopup(auth, provider);
+      console.log("✅ Google login:", auth.currentUser?.email);
+      navigate('/'); // Redirect to home page after successful Google login
+    } catch (err: any) {
+      console.error("Google login error:", err);
+      setError(err.message); // Display Firebase error message
+    }
   };
 
   return (
@@ -44,7 +67,15 @@ const Login = () => {
           >
             Login →
           </button>
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="magic-button w-full px-6 py-3 rounded-xl text-lg font-medium text-white transition-all duration-300"
+          >
+            Login with Google
+          </button>
         </form>
+        {error && <p className="mt-4 text-center text-red-500">{error}</p>}
         <p className="mt-6 text-center text-muted-foreground">
           Don't have an account?{" "}
           <Link to="/signup" className="text-primary hover:underline glow-text">

@@ -87,14 +87,16 @@ const Navigation = () => {
               signup
             </button>
           </Link>
-          <button
-            className="px-5 py-2 border-2 border-dashed border-muted-foreground/30 rounded-lg
-                         text-foreground text-sm font-medium tracking-wide transition-all duration-300
-                         hover:border-primary hover:text-primary hover:shadow-pink-glow
-                         hover:scale-105"
-          >
-            about us
-          </button>
+          <Link to="/about-us">
+            <button
+              className="px-5 py-2 border-2 border-dashed border-muted-foreground/30 rounded-lg
+                           text-foreground text-sm font-medium tracking-wide transition-all duration-300
+                           hover:border-primary hover:text-primary hover:shadow-pink-glow
+                           hover:scale-105"
+            >
+              about us
+            </button>
+          </Link>
         </div>
       </div>
     </nav>

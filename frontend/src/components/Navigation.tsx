@@ -6,11 +6,9 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 p-5">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         {/* Logo */}
-        <Link to="/">
-          <div className="text-xl font-bold tracking-wider glow-text cursor-pointer">
-            synthsia
-          </div>
-        </Link>
+        <div className="text-xl font-bold tracking-wider glow-text">
+          synthsia
+        </div>
 
         {/* Navigation buttons */}
         <div className="flex gap-3">
