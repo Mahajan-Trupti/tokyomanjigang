@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  createUserWithEmailAndPassword,
-  auth,
-} from "../firebase"; // Assuming firebase.ts is in the parent directory of components
+import { createUserWithEmailAndPassword, auth } from "../firebase"; // Assuming firebase.ts is in the parent directory of components
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +21,7 @@ const Signup = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       console.log("✅ Signed up:", auth.currentUser?.email);
-      navigate('/'); // Redirect to home page after successful signup
+      navigate("/dashboard"); // Redirect to home page after successful signup
     } catch (err: any) {
       console.error("Signup error:", err);
       setError(err.message); // Display Firebase error message

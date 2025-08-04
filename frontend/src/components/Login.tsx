@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -19,7 +19,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("✅ Logged in:", auth.currentUser?.email);
-      navigate('/'); // Redirect to home page after successful login
+      navigate("/dashboard"); // Redirect to home page after successful login
     } catch (err: any) {
       console.error("Login error:", err);
       setError(err.message); // Display Firebase error message
@@ -31,7 +31,7 @@ const Login = () => {
     try {
       await signInWithPopup(auth, provider);
       console.log("✅ Google login:", auth.currentUser?.email);
-      navigate('/'); // Redirect to home page after successful Google login
+      navigate("/dashboard"); // Redirect to dashboard after successful Google login
     } catch (err: any) {
       console.error("Google login error:", err);
       setError(err.message); // Display Firebase error message
