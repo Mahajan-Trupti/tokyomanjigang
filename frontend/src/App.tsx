@@ -8,6 +8,7 @@ import Background from "./components/Background";
 import HomePage from "./components/HomePage";
 import AboutUs from "./components/AboutUs";
 import QuizPage from "./components/QuizPage"; // Import the new QuizPage component
+import QuizResultsPage from "./components/QuizResultsPage"; // Already imported
 
 const App = () => {
   return (
@@ -21,6 +22,8 @@ const App = () => {
         <Route path="/dashboard" element={<HomePage />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/quiz" element={<QuizPage />} />{" "}
+        <Route path="/quiz-results" element={<QuizResultsPage />} />{" "}
+        {/* Already defined */}
         {/* New route for QuizPage */}
       </Routes>
     </Router>

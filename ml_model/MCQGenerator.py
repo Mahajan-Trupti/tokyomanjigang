@@ -8,7 +8,7 @@ from langchain_core.output_parsers import StrOutputParser
 # Enter API Key Here
 # IMPORTANT: In a production environment, never hardcode API keys.
 # Use environment variables or a secure configuration management system.
-os.environ["GOOGLE_API_KEY"] = "AIzaSyBquj6MpHZ8n-zvtpUM6t7aHSKT0aFwh9k" # Replace with your actual API key
+os.environ["GOOGLE_API_KEY"] = "AIzaSyB7r16A-knFSxZ9TnRc9BcNefzLl-gYVT0" # Replace with your actual API key
 
 # extract pdf func
 def extract_pdf_text_from_file(pdf_path):
