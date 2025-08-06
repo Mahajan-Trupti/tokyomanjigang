@@ -25,7 +25,7 @@ const HomePage = () => {
     }
 
     setIsLoading(true);
-    setErrorMessage(""); // Clear previous errors
+    setErrorMessage(""); // to clear out previous errors
 
     const formData = new FormData();
     formData.append("pdf_file", selectedFile);
@@ -48,9 +48,9 @@ const HomePage = () => {
       const data = await response.json();
       console.log("Quiz generated successfully!", data.mcqs);
 
-      // Store MCQs in localStorage and navigate
+      // this is to store generated mcqs in a local storage
       localStorage.setItem("generatedMcqs", JSON.stringify(data.mcqs));
-      navigate("/quiz"); // Navigate to the new quiz display page
+      navigate("/quiz"); //navigate to a new quiz pag
     } catch (error) {
       console.error("Error generating quiz:", error);
       setErrorMessage(
@@ -103,7 +103,7 @@ const HomePage = () => {
           )}
         </div>
 
-        {/* Difficulty Selector */}
+        {/* to select difficulty */}
         <div className="mb-6">
           <label
             className="block text-sm font-medium text-muted-foreground mb-2"
@@ -123,7 +123,7 @@ const HomePage = () => {
           </select>
         </div>
 
-        {/* Number of Questions */}
+        {/* number of questions */}
         <div className="mb-6">
           <label
             className="block text-sm font-medium text-muted-foreground mb-2"
@@ -142,7 +142,7 @@ const HomePage = () => {
           />
         </div>
 
-        {/* Generate Button */}
+        {/* generate button */}
         <button
           onClick={handleGenerateClick}
           className="magic-button w-full px-6 py-3 rounded-xl text-lg font-medium text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"

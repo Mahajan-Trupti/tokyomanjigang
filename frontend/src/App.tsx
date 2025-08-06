@@ -7,7 +7,8 @@ import Navigation from "./components/Navigation";
 import Background from "./components/Background";
 import HomePage from "./components/HomePage";
 import AboutUs from "./components/AboutUs";
-import QuizPage from "./components/QuizPage"; // Import the new QuizPage component
+import QuizPage from "./components/QuizPage";
+import QuizResultsPage from "./components/QuizResultsPage";
 
 const App = () => {
   return (
@@ -21,7 +22,7 @@ const App = () => {
         <Route path="/dashboard" element={<HomePage />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/quiz" element={<QuizPage />} />{" "}
-        {/* New route for QuizPage */}
+        <Route path="/quiz-results" element={<QuizResultsPage />} />{" "}
       </Routes>
     </Router>
   );

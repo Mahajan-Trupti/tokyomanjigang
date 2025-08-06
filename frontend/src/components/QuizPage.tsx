@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 const QuizPage = () => {
   const [mcqs, setMcqs] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null); // State to store the selected option (e.g., 'A', 'B')
-  const [showAnswer, setShowAnswer] = useState(false); // State to control visibility of answer/explanation
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [userAnswers, setUserAnswers] = useState({});
   const navigate = useNavigate();
 
-  // Helper function to parse a single MCQ string into a structured object
+  // parsing function
   const parseMcqString = (mcqString) => {
     const questionMatch = mcqString.match(/Question:\s*(.*?)\s*Options:/s);
     const optionsMatch = mcqString.match(
@@ -47,6 +48,11 @@ const QuizPage = () => {
         const rawMcqs = JSON.parse(storedMcqs);
         const parsedMcqs = rawMcqs.map(parseMcqString);
         setMcqs(parsedMcqs);
+        // load the answers
+        const storedUserAnswers = localStorage.getItem("userAnswers");
+        if (storedUserAnswers) {
+          setUserAnswers(JSON.parse(storedUserAnswers));
+        }
       } catch (e) {
         console.error("Failed to parse MCQs from localStorage:", e);
         setMcqs([]);
@@ -54,30 +60,49 @@ const QuizPage = () => {
     } else {
       navigate("/dashboard");
     }
-
-    return () => {
-      localStorage.removeItem("generatedMcqs");
-    };
   }, [navigate]);
 
-  // Reset selected option and showAnswer when question changes
   useEffect(() => {
-    setSelectedOption(null);
-    setShowAnswer(false);
-  }, [currentQuestionIndex]);
+    setSelectedOption(userAnswers[currentQuestionIndex] || null);
+    setShowAnswer(userAnswers[currentQuestionIndex] !== undefined);
+  }, [currentQuestionIndex, userAnswers]);
 
   const handleOptionClick = (optionKey) => {
     if (selectedOption === null) {
-      // Only allow selection if no option is already selected
       setSelectedOption(optionKey);
-      setShowAnswer(true); // Show answer/explanation after an option is clicked
+      setShowAnswer(true);
+      setUserAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [currentQuestionIndex]: optionKey,
+      }));
     }
   };
 
+  const calculateScore = () => {
+    let score = 0;
+    mcqs.forEach((mcq, index) => {
+      if (userAnswers[index] === mcq.answer) {
+        score++;
+      }
+    });
+    return score;
+  };
+
   const handleNext = () => {
-    setCurrentQuestionIndex((prevIndex) =>
-      Math.min(prevIndex + 1, mcqs.length - 1)
-    );
+    if (currentQuestionIndex === mcqs.length - 1) {
+      //quiz end
+      const score = calculateScore();
+      localStorage.setItem("quizScore", score.toString());
+      localStorage.setItem("totalQuestions", mcqs.length.toString());
+      localStorage.setItem("downloadableMcqs", JSON.stringify(mcqs)); // store for download
+      localStorage.removeItem("generatedMcqs");
+      localStorage.removeItem("userAnswers"); //clearing memory
+      navigate("/quiz-results");
+    } else {
+      setCurrentQuestionIndex((prevIndex) =>
+        Math.min(prevIndex + 1, mcqs.length - 1)
+      );
+    }
   };
 
   const handlePrevious = () => {
@@ -101,8 +126,8 @@ const QuizPage = () => {
   }
 
   const currentMcq = mcqs[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === mcqs.length - 1;
 
-  // Function to determine tag color based on difficulty
   const getDifficultyColor = (difficulty) => {
     switch (difficulty.toLowerCase()) {
       case "easy":
@@ -116,24 +141,23 @@ const QuizPage = () => {
     }
   };
 
-  // Function to determine option styling based on selection and correctness
   const getOptionClasses = (optionKey) => {
     let classes = "p-3 rounded-lg border border-gray-700 transition-colors ";
-    if (selectedOption === null) {
-      classes += "hover:bg-gray-700 cursor-pointer"; // Hover effect only if not selected yet
-    } else {
-      classes += "cursor-default"; // No pointer if already selected
+    const hasAnswered = userAnswers[currentQuestionIndex] !== undefined;
 
-      if (optionKey === selectedOption) {
-        // This is the selected option
+    if (!hasAnswered) {
+      classes += "hover:bg-gray-700 cursor-pointer";
+    } else {
+      classes += "cursor-default";
+
+      if (optionKey === userAnswers[currentQuestionIndex]) {
         if (optionKey === currentMcq.answer) {
-          classes += " bg-green-700 border-green-500"; // Correct
+          classes += " bg-green-700 border-green-500";
         } else {
-          classes += " bg-red-700 border-red-500"; // Incorrect
+          classes += " bg-red-700 border-red-500";
         }
-      } else if (optionKey === currentMcq.answer && selectedOption !== null) {
-        // This is the correct answer, and an option has been selected (even if wrong)
-        classes += " bg-green-700 border-green-500"; // Highlight correct answer after selection
+      } else if (optionKey === currentMcq.answer) {
+        classes += " bg-green-700 border-green-500";
       }
     }
     return classes;
@@ -167,15 +191,15 @@ const QuizPage = () => {
               {Object.entries(currentMcq.options).map(([key, value]) => (
                 <div
                   key={key}
-                  className={getOptionClasses(key)} // Apply dynamic classes
-                  onClick={() => handleOptionClick(key)} // Handle click
+                  className={getOptionClasses(key)}
+                  onClick={() => handleOptionClick(key)}
                 >
                   <span className="font-medium">{`${key}. `}</span>
                   {value}
                 </div>
               ))}
             </div>
-            {showAnswer && ( // Conditionally render answer and explanation
+            {showAnswer && (
               <div className="mt-6 border-t border-gray-700 pt-4">
                 <p className="text-lg font-semibold text-primary">
                   Answer: {currentMcq.answer}
@@ -201,19 +225,9 @@ const QuizPage = () => {
           </span>
           <button
             onClick={handleNext}
-            disabled={currentQuestionIndex === mcqs.length - 1}
-            className="magic-button px-6 py-3 rounded-xl text-lg font-medium text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Next →
-          </button>
-        </div>
-
-        <div className="text-center mt-8">
-          <button
-            onClick={() => navigate("/dashboard")}
             className="magic-button px-6 py-3 rounded-xl text-lg font-medium text-white transition-all duration-300"
           >
-            Generate Another Quiz
+            {isLastQuestion ? "End Quiz" : "Next →"}
           </button>
         </div>
       </div>
