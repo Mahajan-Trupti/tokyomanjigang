@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, auth } from "../firebase"; // Assuming firebase.ts is in the parent directory of components
+import { createUserWithEmailAndPassword, auth } from "../firebase";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
