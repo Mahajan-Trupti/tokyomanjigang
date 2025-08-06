@@ -1,39 +1,64 @@
 import React, { useState } from "react";
 import { Upload, X, FileText } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
 const HomePage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [difficulty, setDifficulty] = useState("medium");
   const [numQuestions, setNumQuestions] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // State for error messages
+  const navigate = useNavigate(); // Initialize navigate hook
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
+      setErrorMessage(""); // Clear any previous error messages
     }
   };
 
-  const handleGenerateClick = () => {
+  const handleGenerateClick = async () => {
     if (!selectedFile) {
-      // In a real application, you would show a user-friendly error message
-      console.error("Please upload a PDF file first.");
+      setErrorMessage("Please upload a PDF file first.");
       return;
     }
 
     setIsLoading(true);
-    console.log("Generating quiz with:", {
-      file: selectedFile.name,
-      difficulty,
-      numQuestions,
-    });
+    setErrorMessage(""); // Clear previous errors
 
-    // Simulate API call
-    setTimeout(() => {
+    const formData = new FormData();
+    formData.append("pdf_file", selectedFile);
+    formData.append("difficulty", difficulty);
+    formData.append("numQuestions", numQuestions);
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/generate_quiz", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.error || "Something went wrong on the server."
+        );
+      }
+
+      const data = await response.json();
+      console.log("Quiz generated successfully!", data.mcqs);
+
+      // Store MCQs in localStorage and navigate
+      localStorage.setItem("generatedMcqs", JSON.stringify(data.mcqs));
+      navigate("/quiz"); // Navigate to the new quiz display page
+    } catch (error) {
+      console.error("Error generating quiz:", error);
+      setErrorMessage(
+        error.message || "Failed to generate quiz. Please try again."
+      );
+    } finally {
       setIsLoading(false);
-      // Logic for handling the generated quiz would go here
-      console.log("Quiz generated successfully!");
-    }, 2000);
+    }
   };
 
   return (
@@ -71,6 +96,11 @@ const HomePage = () => {
               </button>
             )}
           </div>
+          {errorMessage && (
+            <p className="text-red-500 text-sm mt-2 text-center">
+              {errorMessage}
+            </p>
+          )}
         </div>
 
         {/* Difficulty Selector */}
