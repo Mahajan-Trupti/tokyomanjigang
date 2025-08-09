@@ -5,14 +5,14 @@ const Navigation = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 p-5">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
-        {/* Logo wrapped with Link component */}
-        <Link to="/">
+        {/* logo + uska linking */}
+        <Link to="/landing">
           <div className="text-xl font-bold tracking-wider glow-text cursor-pointer">
             synthsia
           </div>
         </Link>
 
-        {/* Navigation buttons */}
+        {/* nav buttons */}
         <div className="flex gap-3">
           <Link to="/login">
             <button

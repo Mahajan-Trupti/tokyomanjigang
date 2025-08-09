@@ -5,7 +5,7 @@ const Background = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-slate-900"></div>
 
       {/* Animated grid */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-60">
         <div
           className="absolute inset-0"
           style={{

@@ -11,20 +11,20 @@ const Signup = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null); // clear previous errors
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match"); // Set error state instead of alert()
+      setError("Passwords do not match");
       return;
     }
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       console.log("✅ Signed up:", auth.currentUser?.email);
-      navigate("/dashboard"); // Redirect to home page after successful signup
+      navigate("/dashboard"); // redirect to home page after successful signup
     } catch (err: any) {
       console.error("Signup error:", err);
-      setError(err.message); // Display Firebase error message
+      setError(err.message); // error message
     }
   };
 
@@ -32,7 +32,7 @@ const Signup = () => {
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-sm p-8 rounded-2xl glow-border backdrop-blur-md bg-white/5 shadow-xl">
         <h2 className="text-3xl font-bold tracking-wider text-center text-white mb-6">
-          Sign up
+          join synthsia!
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <input

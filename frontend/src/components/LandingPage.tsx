@@ -3,9 +3,7 @@ import Spline from "@splinetool/react-spline";
 import { Link } from "react-router-dom";
 import { Upload, Sparkles, FileText } from "lucide-react";
 
-// All component logic is now defined within this file
-
-// Component for the landing page's background
+//background component
 const Background = () => {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
@@ -60,8 +58,8 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 p-5">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         {/* Logo */}
-        <Link to="/">
-          <div className="text-xl font-bold tracking-wider glow-text cursor-pointer">
+        <Link to="/landing">
+          <div className="text-xl font-bold tracking-wider glow-text cursor-pointer font-sans">
             synthsia
           </div>
         </Link>
@@ -71,7 +69,7 @@ const Navigation = () => {
             <button
               className="px-5 py-2 border-2 border-dashed border-muted-foreground/30 rounded-lg
                text-foreground text-sm font-medium tracking-wide transition-all duration-300
-               hover-style-btn"
+               hover-style-btn font-sans"
             >
               login
             </button>
@@ -80,7 +78,7 @@ const Navigation = () => {
             <button
               className="px-5 py-2 border-2 border-dashed border-muted-foreground/30 rounded-lg
                text-foreground text-sm font-medium tracking-wide transition-all duration-300
-               hover-style-btn"
+               hover-style-btn font-sans"
             >
               signup
             </button>
@@ -89,7 +87,7 @@ const Navigation = () => {
             <button
               className="px-5 py-2 border-2 border-dashed border-muted-foreground/30 rounded-lg
                text-foreground text-sm font-medium tracking-wide transition-all duration-300
-               hover-style-btn"
+               hover-style-btn font-sans"
             >
               about us
             </button>
@@ -154,30 +152,41 @@ const LandingPage = () => {
       <div className="grid grid-cols-[3fr_2fr] w-full min-h-screen">
         <main className="relative z-10 flex flex-col px-24 py-36 space-y-8 text-left h-fit">
           <div>
-            <h1 className="text-4xl font-extrabold tracking-widest text-white glow-text font-spartan">
+            <h1
+              className="text-4xl font-extrabold tracking-widest text-white glow-text font-spartan"
+              style={{ fontSize: "45px" }}
+            >
               SYNTHSIA:
             </h1>
+            <br></br>
 
-            <p className="text-base text-muted-foreground mt-3 max-w-xl">
+            <p
+              className="text-base text-muted-foreground mt-3 max-w-xl font-spartan"
+              style={{ fontSize: "23px" }}
+            >
               Weave Knowledge into Questions.
             </p>
 
-            <p className="text-base text-muted-foreground mt-3 max-w-xl italic">
+            <p
+              className="text-base text-muted-foreground mt-3 max-w-xl italic font-spartan"
+              style={{ fontSize: "19px" }}
+            >
               The AI-powered tool that transforms any PDF into a custom quiz for
               smarter learning.
             </p>
           </div>
 
           {/* Icons */}
-          <div className="flex items-start gap-4">
+          <div className="flex items-start gap-5">
             <FeatureIcon type="upload" />
             <FeatureIcon type="generate" />
             <FeatureIcon type="export" />
           </div>
+          <br></br>
 
           {/* CTA */}
           <Link to="/dashboard">
-            <button className="magic-button text-white px-5 py-2.5 rounded-xl text-lg font-medium max-w-max">
+            <button className="glare-effect magic-button text-white px-5 py-2.5 rounded-xl text-lg font-medium max-w-max font-spartan">
               Start Weaving →
             </button>
           </Link>

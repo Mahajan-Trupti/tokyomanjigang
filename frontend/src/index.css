@@ -4,12 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Futuristic Design System - All colors, gradients, fonts, etc defined here. 
-All colors MUST be HSL.
-*/
+
+.distortion-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
 @layer components {
-  /* ... your other components ... */
+  
 
   .hover-style-btn:hover {
     border-color: hsl(var(--primary));
@@ -19,9 +22,30 @@ All colors MUST be HSL.
   }
 }
 
+.glare-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glare-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%; 
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3); 
+  transform: skewX(-20deg); 
+  transition: all 0.5s ease-in-out;
+}
+
+.glare-effect:hover::before {
+  left: 150%; 
+}
+
 @layer base {
   :root {
-    /* Base colors - deep space theme */
+    
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
@@ -31,7 +55,7 @@ All colors MUST be HSL.
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    /* Neon colors - cyberpunk theme */
+    
     --primary: 330 81% 60%;  /* Hot pink */
     --primary-foreground: 0 0% 98%;
     
@@ -53,17 +77,17 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
     
-    /* Futuristic gradients */
+    /* gradients */
     --gradient-magic: linear-gradient(135deg, hsl(330 81% 60%), hsl(200 100% 60%), hsl(260 100% 70%));
     --gradient-glow: linear-gradient(90deg, hsl(330 81% 60% / 0.2), hsl(200 100% 60% / 0.2));
     --gradient-orb: radial-gradient(circle, hsl(330 81% 60% / 0.4), hsl(200 100% 60% / 0.2), transparent);
     
-    /* Subtle glowing shadows */
+    /* glowing shadows */
     --shadow-pink-glow: 0 0 15px hsl(330 81% 60% / 0.3);
     --shadow-cyan-glow: 0 0 15px hsl(200 100% 60% / 0.3);
     --shadow-magic: 0 0 20px hsl(330 81% 60% / 0.3), 0 0 40px hsl(200 100% 60% / 0.15);
     
-    /* Animations */
+    /* animations */
     --transition-glow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;

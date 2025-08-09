@@ -9,6 +9,9 @@ import HomePage from "./components/HomePage";
 import AboutUs from "./components/AboutUs";
 import QuizPage from "./components/QuizPage";
 import QuizResultsPage from "./components/QuizResultsPage";
+import TopicSelectionPage from "./components/TopicSelectionPage";
+import SummaryPage from "./components/SummaryPage";
+import SplashScreen from "./components/SplashScreen";
 
 const App = () => {
   return (
@@ -16,13 +19,16 @@ const App = () => {
       <Background />
       <Navigation />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<SplashScreen />} />
+        <Route path="/landing" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<HomePage />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/quiz" element={<QuizPage />} />{" "}
         <Route path="/quiz-results" element={<QuizResultsPage />} />{" "}
+        <Route path="/topics" element={<TopicSelectionPage />} />
+        <Route path="/summary" element={<SummaryPage />} />
       </Routes>
     </Router>
   );

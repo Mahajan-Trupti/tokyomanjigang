@@ -5,7 +5,7 @@ import {
   signInWithPopup,
   auth,
   provider,
-} from "../firebase"; // Assuming firebase.ts is in the parent directory of components
+} from "../firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,26 +15,26 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null); // clear previous errors
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("✅ Logged in:", auth.currentUser?.email);
-      navigate("/dashboard"); // Redirect to home page after successful login
+      navigate("/dashboard"); // redirect hojayega to home page after successful login
     } catch (err: any) {
       console.error("Login error:", err);
-      setError(err.message); // Display Firebase error message
+      setError(err.message); // error msg
     }
   };
 
   const handleGoogleLogin = async () => {
-    setError(null); // Clear previous errors
+    setError(null); // clear previous errors
     try {
       await signInWithPopup(auth, provider);
       console.log("✅ Google login:", auth.currentUser?.email);
-      navigate("/dashboard"); // Redirect to dashboard after successful Google login
+      navigate("/dashboard"); // redirect to dashboard after successful login
     } catch (err: any) {
       console.error("Google login error:", err);
-      setError(err.message); // Display Firebase error message
+      setError(err.message); // error message
     }
   };
 
@@ -42,7 +42,7 @@ const Login = () => {
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-sm p-8 rounded-2xl glow-border backdrop-blur-md bg-white/5 shadow-xl">
         <h2 className="text-3xl font-bold tracking-wider text-center text-white mb-6">
-          Login
+          login!
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <input
